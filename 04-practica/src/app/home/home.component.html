@@ -1,8 +1,6 @@
 <section>
-    form de filtro
-    <input type="search" placeholder="Filter by city" #filter>
-    <button class="primary">Search</button>
-
+    <input type="search" placeholder="Filter by city" #filter (input)="onInputChange(filter.value)">
+    <button class="primary" (click)="filterByCity(filter.value)" >Search</button>
 </section>
 <section class="results">
     @if(service.loading()){

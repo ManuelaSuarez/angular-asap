@@ -8,13 +8,16 @@ import { HttpClient } from "@angular/common/http"
 export class HousingService {
   url = "http://localhost:3000/locations"
   private http: HttpClient = inject(HttpClient)
+
   housingLocationList = signal<iHousingLocation[]>([])
   filteredLocationList = signal<iHousingLocation[]>(this.housingLocationList())
   house = signal<iHousingLocation | null>(null)
   loading = signal<boolean>(true)
+
   constructor() {
     this.getAllHousingLocation()
   }
+
   getAllHousingLocation() {
     this.http.get<iHousingLocation[]>(this.url).subscribe((res) => {
       console.log(res)
@@ -24,12 +27,30 @@ export class HousingService {
     })
 
   }
+
   getHousingLocationById(id: number) {
     this.http.get<iHousingLocation>(`${this.url}/${id}`)
       .subscribe((res) => {
         this.house.set(res)
         this.loading.set(false)
       })
+  }
+
+  filterByCity(city: string) {
+    city = city.trim().toLowerCase()
+
+    if (city == "") {
+
+      this.filteredLocationList.set(this.housingLocationList())
+      this.loading.set(false)
+
+    } else {
+    
+      this.filteredLocationList.set(this.housingLocationList().filter(h => h.city.toLowerCase().includes(city)))
+      this.loading.set(false)
+
+    }
+    
   }
 }
 

@@ -13,16 +13,19 @@ import { HousingService } from '@app/housing.service'
 })
 export class DetailsComponent {
   private route: ActivatedRoute = inject(ActivatedRoute);
-  id = Number(this.route.snapshot.paramMap.get('id'))
   service = inject(HousingService);
+
   house = this.service.house
-  loading = this.service.loading
+  loading = this.service.loading  
+  id = Number(this.route.snapshot.paramMap.get('id'))
+
   constructor() {
     this.service.getHousingLocationById(this.id)
   }
 
-
 }
+
+
 // import { CommonModule } from '@angular/common'
 // import { Component, inject, signal } from '@angular/core'
 // import { ActivatedRoute } from '@angular/router'
