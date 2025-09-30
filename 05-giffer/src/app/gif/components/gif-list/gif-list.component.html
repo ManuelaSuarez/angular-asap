@@ -1,8 +1,9 @@
 <h1>
-
     Lista de gifs
 </h1>
 <section class="grid grid-cols-2 md:grid-cols-3 gap-4">
-    <!-- con un for iteran la lista de url's y por cada una muestran una instancia de...' -->
-    <gif-list-item />
+    <!-- @for o *ngFor -->
+    @for(gif of urlList; track gif) {
+        <gif-list-item [urlGif]="gif"></gif-list-item>
+    }    
 </section>
